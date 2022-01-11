@@ -161,6 +161,8 @@
 
       var docsDir = app.getPath("documents") + "/Am3D/models/";
 
+      const imgDir = app.getPath("documents") + "/Am3D/img/";
+
       init();
 
       function initScene() {
@@ -765,7 +767,7 @@
        
         var fileName = model.name.substr(0, model.name.lastIndexOf('.'));
 
-        var filePath = "./img/"+fileName + "_"+type+".png";
+        var filePath = imgDir + fileName + "_"+type+".png";
         console.log(filePath);
 
         //dialog.showSaveDialog(function (fileName) {});
