@@ -111,7 +111,7 @@
         backCamera,
         rightCamera,
         leftCamera;
-      var ortoCamSize = 25;
+      var ortoCamSize = 30;
 
       var files;
       var currentFile = 0;
@@ -711,7 +711,7 @@
       let modelCounter = 0;
 
       function processModels() {
-        if (modelCounter < 30 /* stlFiles.length */) {
+        if (modelCounter < 1 /* stlFiles.length */) {
           model.name = path.basename(stlFiles[modelCounter]);
           readModel(stlFiles[modelCounter]);
           setViews(model.mesh);
@@ -741,7 +741,7 @@
         var f = mesh.geometry.boundingBox.getCenter(c);
         //console.log(c);
 
-        topCamera.position.set(c.x, 80, c.z);
+/*         topCamera.position.set(c.x, 80, c.z);
         topCamera.up.set(0, 0, -1);
         topCamera.lookAt(c);
         topCamera.updateProjectionMatrix();
@@ -749,31 +749,31 @@
         bottomCamera.position.set(c.x, -80, c.z);
         bottomCamera.up.set(0, 0, 1);
         bottomCamera.lookAt(c);
-        bottomCamera.updateProjectionMatrix();
+        bottomCamera.updateProjectionMatrix(); */
 
         frontCamera.position.set(c.x, c.y, 80);
         frontCamera.up.set(0, 1, 0);
         frontCamera.lookAt(c);
         frontCamera.updateProjectionMatrix();
 
-        backCamera.position.set(c.x, c.y, -80);
-        backCamera.up.set(0, 1, 0);
-        backCamera.lookAt(c);
-        backCamera.updateProjectionMatrix();
+        // backCamera.position.set(c.x, c.y, -80);
+        // backCamera.up.set(0, 1, 0);
+        // backCamera.lookAt(c);
+        // backCamera.updateProjectionMatrix();
 
-        leftCamera.position.set(80, c.y, c.z);
-        leftCamera.up.set(0, 1, 0);
-        leftCamera.lookAt(c);
-        leftCamera.updateProjectionMatrix();
+        // leftCamera.position.set(80, c.y, c.z);
+        // leftCamera.up.set(0, 1, 0);
+        // leftCamera.lookAt(c);
+        // leftCamera.updateProjectionMatrix();
 
-        rightCamera.position.set(-80, c.y, c.z);
-        rightCamera.up.set(0, 1, 0);
-        rightCamera.lookAt(c);
-        rightCamera.updateProjectionMatrix();
+        // rightCamera.position.set(-80, c.y, c.z);
+        // rightCamera.up.set(0, 1, 0);
+        // rightCamera.lookAt(c);
+        // rightCamera.updateProjectionMatrix();
 
         renderer.setSize(1024, 1024);
 
-        renderer.render(scene, topCamera);
+/*         renderer.render(scene, topCamera);
         imgTop.src = renderer.domElement.toDataURL();
         model.projections.top = imgTop.src;
         saveprojections(model.projections.top, "top");
@@ -782,14 +782,14 @@
         imgBottom.src = renderer.domElement.toDataURL();
         model.projections.bottom = imgBottom.src;
 
-        saveprojections(model.projections.bottom, "bottom");
+        saveprojections(model.projections.bottom, "bottom"); */
 
         renderer.render(scene, frontCamera);
         imgFront.src = renderer.domElement.toDataURL();
         model.projections.front = imgFront.src;
         saveprojections(model.projections.front, "front");
 
-        renderer.render(scene, backCamera);
+        /* renderer.render(scene, backCamera);
         imgBack.src = renderer.domElement.toDataURL();
         var backCtx = projBack.getContext("2d");
         model.projections.back = imgBack.src;
@@ -804,11 +804,11 @@
         imgRight.src = renderer.domElement.toDataURL();
         model.projections.right = imgRight.src;
 
-        saveprojections(model.projections.right, "right");
+        saveprojections(model.projections.right, "right"); */
 
-        console.timeLog("img");
-        renderer.setSize(w, h);
-        render();
+        //console.timeLog("img");
+        // renderer.setSize(w, h);
+        // render();
         console.timeEnd("img");
       }
 
