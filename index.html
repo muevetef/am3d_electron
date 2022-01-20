@@ -417,21 +417,33 @@
         var c = new THREE.Vector3();
         var f = mesh.geometry.boundingBox.getCenter(c);
         //console.log(c);
+        topCamera.position.set(c.x, 80, c.z);
+        topCamera.up.set(0, 0, -1);
         topCamera.lookAt(c);
         topCamera.updateProjectionMatrix();
 
+        bottomCamera.position.set(c.x, -80, c.z);
+        bottomCamera.up.set(0, 0, 1);
         bottomCamera.lookAt(c);
-        bottomCamera.updateProjectionMatrix(); 
+        bottomCamera.updateProjectionMatrix();
 
+        frontCamera.position.set(c.x, c.y, 80);
+        frontCamera.up.set(0, 1, 0);
         frontCamera.lookAt(c);
         frontCamera.updateProjectionMatrix();
 
+        backCamera.position.set(c.x, c.y, -80);
+        backCamera.up.set(0, 1, 0);
         backCamera.lookAt(c);
         backCamera.updateProjectionMatrix();
 
+        leftCamera.position.set(80, c.y, c.z);
+        leftCamera.up.set(0, 1, 0);
         leftCamera.lookAt(c);
         leftCamera.updateProjectionMatrix();
 
+        rightCamera.position.set(-80, c.y, c.z);
+        rightCamera.up.set(0, 1, 0);
         rightCamera.lookAt(c);
         rightCamera.updateProjectionMatrix();
 
