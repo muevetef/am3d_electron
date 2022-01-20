@@ -130,7 +130,7 @@
       btGuardar.addEventListener("click", guardar);
 
       var btGuardar = document.getElementById("projection");
-      btGuardar.addEventListener("click", setProjectionContour);
+      //btGuardar.addEventListener("click", setProjectionContour);
 
       var model = {
         mesh: null,
@@ -151,7 +151,7 @@
       function init() {
         initScene();
         initCameras();
-        initLigths();
+       
         initControls();
         initGrid();
         initModel();
@@ -199,9 +199,10 @@
       function initModel() {
         if (!model.mesh) {
           model.mesh = new THREE.Mesh();
-          model.mesh.material = new THREE.MeshLambertMaterial({
+/*           model.mesh.material = new THREE.MeshLambertMaterial({
             color: 0xffffff,
-          });
+          }); */
+          model.mesh.material.color.setHex( 0xffffff );
         }
       }
 
@@ -289,52 +290,7 @@
         rightCamera.layers.set(6);
       }
 
-      function initLigths() {
-        //initialize cameras................................................
-        var light = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 1);
-        light.position.set(0, 0, 1).normalize();
-        light.name = "global ligth";
-        camera.add(light);
-        camera.name = "perspective cam";
-        scene.add(camera);
-
-        var topLight = new THREE.HemisphereLight(0xff0000, 0x000000, 1);
-        topLight.position.set(0, 1, 0).normalize();
-        topLight.layers.set(1);
-        topCamera.add(topLight);
-        scene.add(topCamera);
-
-        var bottomLight = new THREE.HemisphereLight(0x00ff00, 0x000000, 1);
-        bottomLight.position.set(0, 1, 0).normalize();
-        bottomLight.layers.set(2);
-        bottomCamera.add(bottomLight);
-        scene.add(bottomCamera);
-
-        var frontLight = new THREE.HemisphereLight(0x0000ff, 0x000000, 1);
-        frontLight.position.set(0, 0, 1).normalize();
-        frontLight.layers.set(3);
-        frontCamera.add(frontLight);
-        scene.add(frontCamera);
-
-        var backLight = new THREE.HemisphereLight(0xffff00, 0x000000, 1);
-        backLight.position.set(0, 0, 1).normalize();
-        backLight.layers.set(4);
-        backCamera.add(backLight);
-        scene.add(backCamera);
-
-        var leftLigth = new THREE.HemisphereLight(0xff00ff, 0x000000, 1);
-        leftLigth.position.set(1, 0, 0).normalize();
-        leftLigth.layers.set(5);
-        leftCamera.add(leftLigth);
-        scene.add(leftCamera);
-
-        var rightLigth = new THREE.HemisphereLight(0x00ffff, 0x000000, 1);
-        rightLigth.position.set(-1, 0, 0).normalize();
-        rightLigth.layers.set(6);
-        rightCamera.add(rightLigth);
-        scene.add(rightCamera);
-      }
-
+      
       function initControls() {
         //init controls................................................
         controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -362,9 +318,9 @@
 
       //function openfile................................................
       function openFile(evt) {
-        files = evt.target.files;
-        currentFile = 0;
-        setModel();
+        // files = evt.target.files;
+        // currentFile = 0;
+        // setModel();
       }
 
       let stlFiles = [];
@@ -417,7 +373,7 @@
 
         console.log("Model " + model.name + " carregat.");
 
-        //render();
+        render();
 
         console.log(model.name);
         console.timeEnd("load");
@@ -430,7 +386,6 @@
         h = window.innerHeight;
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
-
         renderer.setSize(w, h);
         render();
       }
@@ -441,7 +396,6 @@
         resetCamera();
       }
      
-
       let modelCounter = 0;
 
       function processModels() {
@@ -451,9 +405,7 @@
           setViews(model.mesh);
           scene.remove(model.mesh);
           model.mesh.geometry.dispose();
-          model.mesh.material.dispose();
-			  	//model.mesh.texture.dispose();
-          console.log("model counter: "+modelCounter +"..................................................");
+          console.log("model counter: "+ (modelCounter + 1) +"..................................................");
           modelCounter++;
 
           processModels();
@@ -462,92 +414,47 @@
 
       function setViews(mesh) {
         console.time("img");
-        /*         var projTop = document.getElementById("projTop");
-        var projBottom = document.getElementById("projBottom"); */
-        var projFront = document.getElementById("projFront");
-        /*         var projBack = document.getElementById("projBack");
-        var projLeft = document.getElementById("projLeft");
-        var projRight = document.getElementById("projRight"); */
-
-        /*         var imgTop = new Image();
-        var imgBottom = new Image(); */
-        var imgFront = new Image();
-        /*         var imgBack = new Image();
-        var imgLeft = new Image();
-        var imgRight = new Image(); */
-
         var c = new THREE.Vector3();
         var f = mesh.geometry.boundingBox.getCenter(c);
         //console.log(c);
-
-        /*         topCamera.position.set(c.x, 80, c.z);
-        topCamera.up.set(0, 0, -1);
         topCamera.lookAt(c);
         topCamera.updateProjectionMatrix();
 
-        bottomCamera.position.set(c.x, -80, c.z);
-        bottomCamera.up.set(0, 0, 1);
         bottomCamera.lookAt(c);
-        bottomCamera.updateProjectionMatrix(); */
+        bottomCamera.updateProjectionMatrix(); 
 
-        frontCamera.position.set(c.x, c.y, 80);
-        frontCamera.up.set(0, 1, 0);
         frontCamera.lookAt(c);
         frontCamera.updateProjectionMatrix();
 
-        // backCamera.position.set(c.x, c.y, -80);
-        // backCamera.up.set(0, 1, 0);
-        // backCamera.lookAt(c);
-        // backCamera.updateProjectionMatrix();
+        backCamera.lookAt(c);
+        backCamera.updateProjectionMatrix();
 
-        // leftCamera.position.set(80, c.y, c.z);
-        // leftCamera.up.set(0, 1, 0);
-        // leftCamera.lookAt(c);
-        // leftCamera.updateProjectionMatrix();
+        leftCamera.lookAt(c);
+        leftCamera.updateProjectionMatrix();
 
-        // rightCamera.position.set(-80, c.y, c.z);
-        // rightCamera.up.set(0, 1, 0);
-        // rightCamera.lookAt(c);
-        // rightCamera.updateProjectionMatrix();
+        rightCamera.lookAt(c);
+        rightCamera.updateProjectionMatrix();
 
         renderer.setSize(1024, 1024);
 
-        /*         renderer.render(scene, topCamera);
-        imgTop.src = renderer.domElement.toDataURL();
-        model.projections.top = imgTop.src;
-        saveprojections(model.projections.top, "top");
+        renderer.render(scene, topCamera);
+        saveprojections(renderer.domElement.toDataURL(), "top");
 
         renderer.render(scene, bottomCamera);
-        imgBottom.src = renderer.domElement.toDataURL();
-        model.projections.bottom = imgBottom.src;
-
-        saveprojections(model.projections.bottom, "bottom"); */
+        saveprojections(renderer.domElement.toDataURL(), "bottom");
 
         renderer.render(scene, frontCamera);
-        // imgFront.src = renderer.domElement.toDataURL();
-        // model.projections.front = imgFront.src;
-        saveprojections(renderer.domElement.toDataURL(), "front");
+        saveprojections(renderer.domElement.toDataURL(), "left");
 
-        /* renderer.render(scene, backCamera);
-        imgBack.src = renderer.domElement.toDataURL();
-        var backCtx = projBack.getContext("2d");
-        model.projections.back = imgBack.src;
-        saveprojections(model.projections.back, "back");
+        renderer.render(scene, backCamera);
+        saveprojections(renderer.domElement.toDataURL(), "right");
 
         renderer.render(scene, leftCamera);
-        imgLeft.src = renderer.domElement.toDataURL();
-        model.projections.left = imgLeft.src;
-        saveprojections(model.projections.left, "left");
+        saveprojections(renderer.domElement.toDataURL(), "front");
 
         renderer.render(scene, rightCamera);
-        imgRight.src = renderer.domElement.toDataURL();
-        model.projections.right = imgRight.src;
+        saveprojections(renderer.domElement.toDataURL(), "back"); 
 
-        saveprojections(model.projections.right, "right"); */
-
-        //console.timeLog("img");
-        // renderer.setSize(w, h);
-        // render();
         console.timeEnd("img");
       }
 
@@ -565,159 +472,13 @@
         var filePath = dir + fileName + "_" + type + ".png";
         console.log(filePath);
 
-        //dialog.showSaveDialog(function (fileName) {});
-        // Remove header
         let base64Image = src.split(";base64,").pop();
         const buffer = Buffer.from(base64Image, "base64");
-        // const imageData = Jimp.decoders["image/png"](buffer);
-        // const baseImage = new Jimp(imageData);
-        // const outImg = binarize(baseImage);
-        // fs.writeFileSync(filePath, Jimp.encoders["image/png"](outImg));
+
         fs.writeFileSync(filePath, buffer);
       }
 
-      function binarize(_src) {
-        var src = cv.matFromImageData(_src.bitmap);
-        let dst = cv.Mat.zeros(src.cols, src.rows, cv.CV_8UC3);
-        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY, 0);
-        cv.threshold(dst, dst, 0, 255, cv.THRESH_BINARY);
-        //src.convertTo(dst, cv.CV_8U, scale, shift);
-        // *** is GRAY, RGB, or RGBA, according to src.channels() is 1, 3 or 4.
-        cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA);
-        //console.log(dst.data);
-        const outImg = new Jimp({
-          width: dst.cols,
-          height: dst.rows,
-          data: Buffer.from(dst.data),
-        });
-        src.delete();
-        dst.delete();
-        return outImg;
-      }
-      function setProjectionContour(c_in, c_out) {
-        let src = cv.imread(c_in);
-        let dsize = new cv.Size(200, 200);
-        cv.resize(src, src, dsize, 0, 0, cv.INTER_AREA);
-        let dst = cv.Mat.zeros(src.cols, src.rows, cv.CV_8UC3);
-        cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY, 0);
-        cv.threshold(src, src, 0, 255, cv.THRESH_BINARY);
-        let contours = new cv.MatVector();
-        let hierarchy = new cv.Mat();
-        // You can try more different parameters
-        cv.findContours(
-          src,
-          contours,
-          hierarchy,
-          cv.RETR_CCOMP,
-          cv.CHAIN_APPROX_NONE
-        );
-        const cnt = contours;
-        // console.log(src.channels());
-        // console.log(dst)
-        // console.log(contours.get(0));
-        // draw contours with random Scalar
-        for (let i = 0; i < contours.size(); ++i) {
-          let color = new cv.Scalar(255, 0, 0);
-          cv.drawContours(
-            dst,
-            contours,
-            i,
-            color,
-            1,
-            cv.LINE_8,
-            hierarchy,
-            100
-          );
-        }
 
-        var points = [];
-
-        for (var y = 0; y < dst.rows; y++) {
-          for (var x = 0; x < dst.cols; x++) {
-            let pixel = dst.ucharPtr(y, x);
-            let R = pixel[0];
-            if (R > 0) {
-              //console.log("x: "+x+"y: "+y);
-              let center = new cv.Point(x, y);
-              let radius = 1;
-              if (y % 20 == 0)
-                cv.circle(dst, center, radius, [0, 255, 0, 255], 1);
-              points.push([x, y]);
-              //console.log([x,y]);
-            }
-          }
-        }
-
-        let lineColor = new cv.Scalar(0, 0, 255);
-        let point1 = new cv.Point(500, 0);
-        let point2 = new cv.Point(500, 1000);
-        cv.line(dst, point1, point2, lineColor, 1);
-        lineColor = new cv.Scalar(0, 255, 255);
-        point1 = new cv.Point(0, 500);
-        point2 = new cv.Point(1000, 500);
-        cv.line(dst, point1, point2, lineColor, 1);
-
-        // You can try more different parameters
-        let rotatedRect = cv.minAreaRect(contours.get(0));
-        let vertices = cv.RotatedRect.points(rotatedRect);
-
-        let rectangleColor = new cv.Scalar(255, 255, 255);
-
-        // draw rotatedRect
-        for (let i = 0; i < 4; i++) {
-          cv.line(
-            dst,
-            vertices[i],
-            vertices[(i + 1) % 4],
-            rectangleColor,
-            1,
-            cv.LINE_AA,
-            0
-          );
-        }
-
-        let rect = cv.boundingRect(contours.get(0));
-        rectangleColor = new cv.Scalar(255, 255, 0);
-        point1 = new cv.Point(rect.x, rect.y);
-        point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
-        cv.rectangle(dst, point1, point2, rectangleColor, 1, cv.LINE_AA, 0);
-
-        lineColor = new cv.Scalar(0, 255, 255);
-        point1 = new cv.Point(0, 500);
-        point2 = new cv.Point(1000, 500);
-        cv.line(dst, point1, point2, lineColor, 1);
-
-        var pointsX = [];
-        for (var i = 0; i < points.length; i++) {
-          pointsX[i] = points[i][0];
-        }
-        //console.log(pointsX);
-        let maxX = Math.max(...pointsX);
-        let minX = Math.min(...pointsX);
-        let maxPoint, minPoint;
-
-        for (var i = 0; i < pointsX.length; i++) {
-          if (points[i][0] === minX) {
-            minPoint = points[i];
-          }
-          if (points[i][0] === maxX) {
-            maxPoint = points[i];
-          }
-        }
-        //console.log("min: " + minPoint + " max: " + maxPoint);
-
-        lineColor = new cv.Scalar(255, 0, 255);
-        point1 = new cv.Point(minPoint[0], maxPoint[1]);
-        point2 = new cv.Point(maxPoint[0], maxPoint[1]);
-        cv.line(dst, point1, point2, lineColor, 1);
-        point1 = new cv.Point(minPoint[0], minPoint[1]);
-        point2 = new cv.Point(maxPoint[0], minPoint[1]);
-        cv.line(dst, point1, point2, lineColor, 1);
-
-        cv.imshow(c_out, dst);
-        src.delete();
-        dst.delete();
-      }
     </script>
   </body>
 </html>
