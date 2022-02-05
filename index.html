@@ -321,14 +321,16 @@
         // currentFile = 0;
         // setModel();
       }
-
+       
+      let ntFiles = 0;
       const countFilesRecursively = () => {
-        const directory ="/home/toni/Documentos/Am3D_/img/right/"
+        const directory ="/home/toni/Documentos/Am3D/img/right/"
         const filesInDirectory = fs.readdirSync(directory);
         
         for (const file of filesInDirectory) {
           const absolute = path.join(directory, file);
           const filesInDirectory2 = fs.readdirSync(absolute);
+          ntFiles++;
           for (const file2 of filesInDirectory2){
             const absolute2 = path.join(directory, file, file2);
             const filesInDirectory3 = fs.readdirSync(absolute2);
@@ -336,6 +338,7 @@
              console.log(absolute2, filesInDirectory3)
           }
         }
+        console.log(ntFiles)
       };
 
       //countFilesRecursively();
