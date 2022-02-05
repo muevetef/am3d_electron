@@ -151,7 +151,7 @@
       function init() {
         initScene();
         initCameras();
-       
+
         initControls();
         initGrid();
         initModel();
@@ -199,10 +199,10 @@
       function initModel() {
         if (!model.mesh) {
           model.mesh = new THREE.Mesh();
-/*           model.mesh.material = new THREE.MeshLambertMaterial({
+          /*           model.mesh.material = new THREE.MeshLambertMaterial({
             color: 0xffffff,
           }); */
-          model.mesh.material.color.setHex( 0xffffff );
+          model.mesh.material.color.setHex(0xffffff);
         }
       }
 
@@ -290,7 +290,6 @@
         rightCamera.layers.set(6);
       }
 
-      
       function initControls() {
         //init controls................................................
         controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -323,6 +322,23 @@
         // setModel();
       }
 
+      const countFilesRecursively = () => {
+        const directory ="/home/toni/Documentos/Am3D_/img/right/"
+        const filesInDirectory = fs.readdirSync(directory);
+        
+        for (const file of filesInDirectory) {
+          const absolute = path.join(directory, file);
+          const filesInDirectory2 = fs.readdirSync(absolute);
+          for (const file2 of filesInDirectory2){
+            const absolute2 = path.join(directory, file, file2);
+            const filesInDirectory3 = fs.readdirSync(absolute2);
+            if(filesInDirectory3.length != 10)
+             console.log(absolute2, filesInDirectory3)
+          }
+        }
+      };
+
+      //countFilesRecursively();
       let stlFiles = [];
 
       const getFilesRecursively = (directory) => {
@@ -332,11 +348,16 @@
           if (fs.statSync(absolute).isDirectory()) {
             getFilesRecursively(absolute);
           } else {
-            if (path.extname(absolute) === ".stl") stlFiles.push(absolute);
+            if (
+              path.extname(absolute) ===
+              ".stl" /*  && !path.basename(absolute).includes("-b")llevar -b*/
+            ) {
+              stlFiles.push(absolute);
+            }
           }
         }
       };
-      getFilesRecursively(app.getPath("documents"));
+      getFilesRecursively(docsDir);
       console.log(stlFiles);
 
       function toArrayBuffer(buf) {
@@ -379,8 +400,6 @@
         console.timeEnd("load");
       }
 
-      
-
       function resetCamera() {
         w = window.innerWidth;
         h = window.innerHeight;
@@ -395,7 +414,7 @@
       function onWindowResize() {
         resetCamera();
       }
-     
+
       let modelCounter = 0;
 
       function processModels() {
@@ -405,7 +424,11 @@
           setViews(model.mesh);
           scene.remove(model.mesh);
           model.mesh.geometry.dispose();
-          console.log("model counter: "+ (modelCounter + 1) +"..................................................");
+          console.log(
+            "model counter: " +
+              (modelCounter + 1) +
+              ".................................................."
+          );
           modelCounter++;
 
           processModels();
@@ -416,56 +439,56 @@
         console.time("img");
         var c = new THREE.Vector3();
         var f = mesh.geometry.boundingBox.getCenter(c);
-        //console.log(c);
-        topCamera.position.set(c.x, 80, c.z);
-        topCamera.up.set(0, 0, -1);
-        topCamera.lookAt(c);
-        topCamera.updateProjectionMatrix();
 
-        bottomCamera.position.set(c.x, -80, c.z);
-        bottomCamera.up.set(0, 0, 1);
-        bottomCamera.lookAt(c);
-        bottomCamera.updateProjectionMatrix();
+        // topCamera.position.set(c.x, 80, c.z);
+        // topCamera.up.set(0, 0, -1);
+        // topCamera.lookAt(c);
+        // topCamera.updateProjectionMatrix();
+
+        // bottomCamera.position.set(c.x, -80, c.z);
+        // bottomCamera.up.set(0, 0, 1);
+        // bottomCamera.lookAt(c);
+        // bottomCamera.updateProjectionMatrix();
 
         frontCamera.position.set(c.x, c.y, 80);
         frontCamera.up.set(0, 1, 0);
         frontCamera.lookAt(c);
         frontCamera.updateProjectionMatrix();
 
-        backCamera.position.set(c.x, c.y, -80);
-        backCamera.up.set(0, 1, 0);
-        backCamera.lookAt(c);
-        backCamera.updateProjectionMatrix();
+        // backCamera.position.set(c.x, c.y, -80);
+        // backCamera.up.set(0, 1, 0);
+        // backCamera.lookAt(c);
+        // backCamera.updateProjectionMatrix();
 
-        leftCamera.position.set(80, c.y, c.z);
-        leftCamera.up.set(0, 1, 0);
-        leftCamera.lookAt(c);
-        leftCamera.updateProjectionMatrix();
+        // leftCamera.position.set(80, c.y, c.z);
+        // leftCamera.up.set(0, 1, 0);
+        // leftCamera.lookAt(c);
+        // leftCamera.updateProjectionMatrix();
 
-        rightCamera.position.set(-80, c.y, c.z);
-        rightCamera.up.set(0, 1, 0);
-        rightCamera.lookAt(c);
-        rightCamera.updateProjectionMatrix();
+        // rightCamera.position.set(-80, c.y, c.z);
+        // rightCamera.up.set(0, 1, 0);
+        // rightCamera.lookAt(c);
+        // rightCamera.updateProjectionMatrix();
 
         renderer.setSize(1024, 1024);
 
-        renderer.render(scene, topCamera);
-        saveprojections(renderer.domElement.toDataURL(), "top");
+        // renderer.render(scene, topCamera);
+        // saveprojections(renderer.domElement.toDataURL(), "top");
 
-        renderer.render(scene, bottomCamera);
-        saveprojections(renderer.domElement.toDataURL(), "bottom");
+        // renderer.render(scene, bottomCamera);
+        // saveprojections(renderer.domElement.toDataURL(), "bottom");
 
         renderer.render(scene, frontCamera);
-        saveprojections(renderer.domElement.toDataURL(), "left");
-
-        renderer.render(scene, backCamera);
         saveprojections(renderer.domElement.toDataURL(), "right");
+
+        /*         renderer.render(scene, backCamera);
+        saveprojections(renderer.domElement.toDataURL(), "left");
 
         renderer.render(scene, leftCamera);
         saveprojections(renderer.domElement.toDataURL(), "front");
 
         renderer.render(scene, rightCamera);
-        saveprojections(renderer.domElement.toDataURL(), "back"); 
+        saveprojections(renderer.domElement.toDataURL(), "back"); */
 
         console.timeEnd("img");
       }
@@ -473,10 +496,11 @@
       function saveprojections(src, type) {
         var fileName = model.name.substr(0, model.name.lastIndexOf("."));
         var fileDirArr = model.name.split("_");
-        var fileDirName = fileDirArr[0] + "/";
+        var fileDirName1 = fileDirArr[0].substring(0, 3) + "/";
+        var fileDirName2 = fileDirArr[0] + "/";
 
         // With checking if dir already exists
-        const dir = imgDir + "/" + type + "/" + fileDirName;
+        const dir = imgDir + type + "/" + fileDirName1 + "/" + fileDirName2;
 
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir, { recursive: true });
@@ -489,8 +513,6 @@
 
         fs.writeFileSync(filePath, buffer);
       }
-
-
     </script>
   </body>
 </html>

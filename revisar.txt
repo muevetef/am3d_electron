@@ -1,0 +1,144 @@
+./models/BBE2 [
+  'BBE2_01.stl',
+  'BBE2_02.stl',
+  'BBE2_03.stl',
+  'BBE2_04.stl',
+  'BBE2_05.stl',
+  'BBE2_06.stl',
+  'BBE2_07.stl',
+  'BBE2_08.stl',
+  'BBE2_09.stl'
+]
+./models/BLA5 [
+  'BLA5_01.stl',
+  'BLA5_02.stl',
+  'BLA5_03.stl',
+  'BLA5_04.stl',
+  'BLA5_05.stl',
+  'BLA5_06.stl',
+  'BLA5_07.stl',
+  'BLA5_08.stl',
+  'BLA5_09.stl'
+]
+./models/CEB2-b [
+  'CEB2-b_010.stl',
+  'CEB2-b_02.stl',
+  'CEB2-b_03.stl',
+  'CEB2-b_04.stl',
+  'CEB2-b_05.stl',
+  'CEB2-b_06.stl',
+  'CEB2-b_07.stl',
+  'CEB2-b_08.stl',
+  'CEB2-b_09.stl'
+]
+./models/CNL2-b [
+  'CNL2-b_010.stl',
+  'CNL2-b_02.stl',
+  'CNL2-b_03.stl',
+  'CNL2-b_04.stl',
+  'CNL2-b_05.stl',
+  'CNL2-b_06.stl',
+  'CNL2-b_07.stl',
+  'CNL2-b_08.stl',
+  'CNL2-b_09.stl'
+]
+./models/CRN3 [
+  'CRN3_010.stl',
+  'CRN3_02.stl',
+  'CRN3_03.stl',
+  'CRN3_04.stl',
+  'CRN3_05.stl',
+  'CRN3_06.stl',
+  'CRN3_07.stl',
+  'CRN3_08.stl',
+  'CRN3_09.stl'
+]
+./models/ETD3-b [
+  'ETD3-b_010.stl',
+  'ETD3-b_02.stl',
+  'ETD3-b_03.stl',
+  'ETD3-b_04.stl',
+  'ETD3-b_05.stl',
+  'ETD3-b_06.stl',
+  'ETD3-b_07.stl',
+  'ETD3-b_08.stl',
+  'ETD3-b_09.stl'
+]
+./models/GAR2 [
+  'GAR2_01.stl',
+  'GAR2_010.stl',
+  'GAR2_02.stl',
+  'GAR2_04.stl',
+  'GAR2_05.stl',
+  'GAR2_06.stl',
+  'GAR2_07.stl',
+  'GAR2_08.stl',
+  'GAR2_09.stl'
+]
+./models/GAR4 [
+  'GAR4_01.stl',
+  'GAR4_010.stl',
+  'GAR4_03.stl',
+  'GAR4_04.stl',
+  'GAR4_05.stl',
+  'GAR4_06.stl',
+  'GAR4_07.stl',
+  'GAR4_08.stl',
+  'GAR4_09.stl'
+]
+./models/MAT3 [
+  'MAT1_01.stl', 'MAT1_010.stl',
+  'MAT1_02.stl', 'MAT1_03.stl',
+  'MAT1_04.stl', 'MAT1_05.stl',
+  'MAT1_06.stl', 'MAT1_07.stl',
+  'MAT1_08.stl', 'MAT1_09.stl',
+  'MAT3_01.stl', 'MAT3_010.stl',
+  'MAT3_02.stl', 'MAT3_03.stl',
+  'MAT3_04.stl', 'MAT3_05.stl',
+  'MAT3_06.stl', 'MAT3_07.stl',
+  'MAT3_08.stl', 'MAT3_09.stl'
+]
+./models/POT4-b [
+  'POT4-b_010.stl',
+  'POT4-b_02.stl',
+  'POT4-b_03.stl',
+  'POT4-b_04.stl',
+  'POT4-b_05.stl',
+  'POT4-b_06.stl',
+  'POT4-b_07.stl',
+  'POT4-b_08.stl',
+  'POT4-b_09.stl'
+]
+./models/RAF3-b [
+  'RAF3-b_010.stl',
+  'RAF3-b_02.stl',
+  'RAF3-b_03.stl',
+  'RAF3-b_04.stl',
+  'RAF3-b_05.stl',
+  'RAF3-b_06.stl',
+  'RAF3-b_07.stl',
+  'RAF3-b_08.stl',
+  'RAF3-b_09.stl'
+]
+./models/SIO3 [
+  'SIO3_010.stl',
+  'SIO3_02.stl',
+  'SIO3_03.stl',
+  'SIO3_04.stl',
+  'SIO3_05.stl',
+  'SIO3_06.stl',
+  'SIO3_07.stl',
+  'SIO3_08.stl',
+  'SIO3_09.stl'
+]
+./models/TOT3-b [
+  'TOT3-b_010.stl',
+  'TOT3-b_02.stl',
+  'TOT3-b_03.stl',
+  'TOT3-b_04.stl',
+  'TOT3-b_05.stl',
+  'TOT3-b_06.stl',
+  'TOT3-b_07.stl',
+  'TOT3-b_08.stl',
+  'TOT3-b_09.stl'
+]
